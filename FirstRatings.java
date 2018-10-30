@@ -36,7 +36,7 @@ public class FirstRatings {
 		}
 
 		catch (java.io.FileNotFoundException e){
-			System.out.println("ERROR, FILE NOT FOUND");
+			System.out.println("ERROR, MOVIE FILE NOT FOUND");
 		}
 		catch (IOException e){
 			System.out.println("IOEXCEPTION");
@@ -44,22 +44,18 @@ public class FirstRatings {
 
 		return movieList;
 	}
-
-
-	public void testLoadMovies(){
-		String fileName = "data/ratedmovies_short.csv";
-		ArrayList<Movie> movies = loadMovies(fileName);
-		System.out.println(movies.size());
-
-		int moviesInComedy = moviesInGenre(movies, "Comedy");
-		System.out.println(moviesInComedy);
-
-		int longerthan150 = moviesLongerThan(movies, 150);
-		System.out.println(longerthan150);
-
-		getDirectors(movies);
+	
+	public ArrayList<Rater> loadRaters( String fileName){
+		ArrayList<Rater> rater = new ArrayList<Rater>();
+		try {
+			FileReader csvData = new FileReader(fileName);
+		}
+		catch (java.io.FileNotFoundException e){
+			System.out.println("ERROR, MOVIE FILE NOT FOUND");
+		}
+		return rater;
 	}
-
+	
 	public int moviesInGenre(ArrayList<Movie> movies, String genre) {
 		int count = 0;
 		for (Movie m : movies) {	
@@ -71,6 +67,7 @@ public class FirstRatings {
 		return count;
 	}
 
+	//returns the number of movies longer than a given number of movies
 	public int moviesLongerThan(ArrayList<Movie> movies, int givenLength) {
 		int count = 0;
 		for (Movie m : movies) {	
@@ -81,6 +78,8 @@ public class FirstRatings {
 		}
 		return count;
 	}
+	
+	
 
 	public void getDirectors(ArrayList<Movie> movies) {
 		HashMap <String, Integer> directorsHM = new HashMap <String, Integer>();
@@ -96,20 +95,22 @@ public class FirstRatings {
 				addToHashMap(directorsHM, currDirectors);
 			}
 		}
-		
-			for (String key : directorsHM.keySet()) {
-				System.out.println(key);
-			}
-			int mostCommon = biggestMax(directorsHM);
-			System.out.println(mostCommon);
-			
-			ArrayList<String>directorsWithMost = directorsWithMost(directorsHM, mostCommon);
-			for (String s : directorsWithMost) {
-				System.out.println(s);
-			}
+		//print all the directors
+		for (String key : directorsHM.keySet()) {
+			System.out.println(key);
+		}
+		//print the most movies directed by any one or more directors
+		int mostCommon = biggestMax(directorsHM);
+		System.out.println(mostCommon);
+
+		//print the names of the directors which have directed the most movies
+		ArrayList<String>directorsWithMost = directorsWithMost(directorsHM, mostCommon);
+		for (String s : directorsWithMost) {
+			System.out.println(s);
+		}
 	}
 
-
+	//integer of the most movies directed by any person
 	public int biggestMax(HashMap <String, Integer> directorsHM) {
 		int biggest = -1;
 		for (String key : directorsHM.keySet()) {
@@ -120,7 +121,8 @@ public class FirstRatings {
 		}
 		return biggest;	
 	}
-	
+
+	//return an ArrayList with the directors that directed the most movies
 	public ArrayList<String> directorsWithMost(HashMap <String, Integer> directorsHM, int biggestMax){
 		ArrayList<String> directors = new ArrayList<String>();
 		for (String key : directorsHM.keySet()) {
@@ -130,11 +132,10 @@ public class FirstRatings {
 		}
 		return directors;
 	}
-	
-	
-	//check if a director is in the hashmap
-	//add it or increment value by 1
 
+
+	//check if a director is in the hashmap
+	//either add it or increment value by 1
 	public void addToHashMap(HashMap <String, Integer> directorsHM, String currDirectors) {
 		if (!directorsHM.containsKey(currDirectors)) {
 			directorsHM.put(currDirectors, 1);
@@ -144,5 +145,22 @@ public class FirstRatings {
 		}
 	}
 
+	
+	
+	public void testLoadMovies(){
+		String fileName = "data/ratedmovies_short.csv";
+		ArrayList<Movie> movies = loadMovies(fileName);
+		System.out.println(movies.size());
+
+		int moviesInComedy = moviesInGenre(movies, "Comedy");
+		System.out.println(moviesInComedy);
+
+		int longerthan150 = moviesLongerThan(movies, 150);
+		System.out.println(longerthan150);
+
+		getDirectors(movies);
+	}
+	
+	
 }
 

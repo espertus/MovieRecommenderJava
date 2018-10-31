@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 
 public class Rater {
-    private String myID;
+	
+   
+
+	private String myID;
     private ArrayList<Rating> myRatings;
 
     Rater(String myID){
@@ -40,8 +43,10 @@ public class Rater {
         }
         return myItems;
     }
+    
+    @Override
+   	public String toString() {
+   		return "Rater [myID=" + myID + ", myRatings=" + myRatings + "]";
+   	}
 
-    public String toString() {
-    	return myID + " | " + myRatings;
-    }
 }

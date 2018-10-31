@@ -10,7 +10,7 @@ public class Rater {
     }
 
     //creates a new rating and adds to myRatings
-    private void addRating(String item, double rating){
+    public void addRating(String item, double rating){
         Rating newRating = new Rating(item, rating);
         myRatings.add(newRating);
     }

@@ -8,6 +8,9 @@ import java.io.File;
 import org.apache.commons.csv.*;
 import java.util.HashMap;
 
+// This method should process every record from the CSV file whose name is filename
+// and return an ArrayList of type Rater with all the rater data from the file.
+
 public class FirstRatings {
 	public ArrayList<Movie> loadMovies( String fileName ){
 
@@ -44,16 +47,71 @@ public class FirstRatings {
 
 		return movieList;
 	}
-	
+
+
+
 	public ArrayList<Rater> loadRaters( String fileName){
-		ArrayList<Rater> rater = new ArrayList<Rater>();
+		ArrayList<Rater> allRatersAL = new ArrayList<Rater>();
+
 		try {
+
 			FileReader csvData = new FileReader(fileName);
+			CSVParser parser = new CSVParser(csvData, CSVFormat.DEFAULT.withHeader());
+			String firstRater = null;
+			int count = 0;
+			
+			
+			for (CSVRecord r :parser) {
+				String currRaterID = r.get("rater_id");
+				String movieID = r.get("movie_id");
+				double rating = Double.parseDouble(r.get("rating"));
+				if (firstRater == null) {
+					firstRater = currRaterID;
+					Rater currRater = addRater(currRaterID, movieID, rating);
+					allRatersAL.add(currRater);
+					continue;
+				} 
+				if (currRaterID.equals(firstRater)) {	
+					allRatersAL.get(count).addRating(r.get("movie_id"),Double.parseDouble(r.get("rating")));
+					continue;
+				} 
+				
+				else {
+					Rater currRater = addRater(currRaterID, movieID, rating);
+					allRatersAL.add(currRater);
+				}
+				firstRater = currRaterID;
+				count ++;
+			}
+			parser.close();
 		}
+
 		catch (java.io.FileNotFoundException e){
-			System.out.println("ERROR, MOVIE FILE NOT FOUND");
+			System.out.println("ERROR, RATINGS FILE NOT FOUND");
 		}
-		return rater;
+
+		catch (IOException e){
+			System.out.println("IOEXCEPTION AT RATINGS FILE");
+		}
+
+		return allRatersAL;
+	}
+	
+	public Rater addRater(String raterID, String movieID, double rating) {
+		Rater currRater = new Rater(raterID);
+		currRater.addRating(movieID, rating);
+		return currRater;
+	}
+	
+	
+	public void testLoadRaters() {
+		String fileName = "data/ratings.csv";
+		ArrayList<Rater> raters = loadRaters(fileName);
+		System.out.println(raters.size());
+		
+		for (Rater r : raters) {
+			
+		}
 	}
 	
 	public int moviesInGenre(ArrayList<Movie> movies, String genre) {
@@ -78,8 +136,6 @@ public class FirstRatings {
 		}
 		return count;
 	}
-	
-	
 
 	public void getDirectors(ArrayList<Movie> movies) {
 		HashMap <String, Integer> directorsHM = new HashMap <String, Integer>();
@@ -145,8 +201,7 @@ public class FirstRatings {
 		}
 	}
 
-	
-	
+
 	public void testLoadMovies(){
 		String fileName = "data/ratedmovies_short.csv";
 		ArrayList<Movie> movies = loadMovies(fileName);
@@ -160,7 +215,5 @@ public class FirstRatings {
 
 		getDirectors(movies);
 	}
-	
-	
 }
 

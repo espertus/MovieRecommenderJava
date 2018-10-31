@@ -40,4 +40,8 @@ public class Rater {
         }
         return myItems;
     }
+
+    public String toString() {
+    	return myID + " | " + myRatings;
+    }
 }

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 // This method should process every record from the CSV file whose name is filename
-// and return an ArrayList of type Rater with all the rater data from the file.
+// and return an ArrayListof type Rater with all the rater data from the file.
 
 public class FirstRatings {
 

@@ -24,8 +24,9 @@ public class Rater {
 
     //returns the rating of a movie if it is in myRatings
     public double getRating(String item) {
-        if (myRatings.contains(item)){
-            int index = myRatings.indexOf(item);
+    	ArrayList allContained = getItemsRated();
+        if (allContained.contains(item)){
+            int index = allContained.indexOf(item);
             return myRatings.get(index).getValue();
         }
         return -1;

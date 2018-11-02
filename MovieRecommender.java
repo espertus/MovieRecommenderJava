@@ -17,12 +17,26 @@ public class MovieRecommender {
     	//testMovieDatabase();
     	MovieRunnerWithFilters mrwf = new MovieRunnerWithFilters();
     	mrwf.printAverageRatings();
+    	System.out.println();
+
     	mrwf.printAverageRatingsByGenre();
     	System.out.println();
     	mrwf.printAverageRatingsByYear();
     	
     	System.out.println();
     	mrwf.printAverageRatingsByGenre();
+    	
+    	System.out.println();
+    	mrwf.printAverageRatingsByMinutes();
+    	
+    	System.out.println();
+    	mrwf.printAverageRatingsByDirectors();
+    	
+    	System.out.println();
+    	mrwf.printAverageRatingsByYearAndGenre();
+    	
+    	System.out.println();
+    	mrwf.printAverageRatingsByDirectorsAndMinutes();
     }
     
     public static void testMovieDatabase() {

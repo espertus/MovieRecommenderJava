@@ -4,6 +4,9 @@ public class AllFilters implements Filter{
 	private ArrayList<Filter> filters;
 	
 	public void addFilter(Filter f) {
+		if (filters == null) {
+			filters = new ArrayList<Filter>();
+		}
 		filters.add(f);
 	}
 	

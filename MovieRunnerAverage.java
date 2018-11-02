@@ -9,8 +9,8 @@ public class MovieRunnerAverage {
 		//System.out.println(sr.getRaterSize());
 		//System.out.println(sr.getAverageRatings(0).toString());
 		ArrayList<Rating> moreThanX = sr.getAverageRatings(12);
-		//System.out.println(moreThanX.toString());
-		String idOfLowest = sr.getIdOfLowestRated(moreThanX);
+		System.out.println(moreThanX.toString());
+		String idOfLowest = getIdOfLowest(moreThanX);
 		String titleofLowest = sr.getTitle(idOfLowest);
 		System.out.println(titleofLowest);
 		//System.out.println("More than 50 " + morethan50.size());
@@ -35,6 +35,16 @@ public class MovieRunnerAverage {
 		}
 	}
 	
-	
+	public String getIdOfLowest(ArrayList<Rating> ratings) {
+		double lowest = Double.MAX_VALUE;
+		String id = null;
+		for (Rating r : ratings) {
+			if (r.getValue() < lowest) {
+				lowest = r.getValue();
+				id = r.getItem();
+			}
+		}
+		return id;
+	}
 
 }

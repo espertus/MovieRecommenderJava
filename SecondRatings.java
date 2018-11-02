@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class SecondRatings {
 	private ArrayList<Movie> myMovies;
@@ -31,20 +30,21 @@ public class SecondRatings {
 	//contains the average rating for every movie with at least n raters
 	public ArrayList<Rating> getAverageRatings(int minimalRaters){
 		ArrayList<Rating> ratings = new ArrayList<Rating>();
-		HashSet<Rating> ratingsHS = new HashSet<Rating>();
 		for (Rater r : myRaters) {
 			ArrayList<String> moviesInList = r.getItemsRated();
 			for (String s : moviesInList) {
 				double average = getAverageByID(s,minimalRaters);
 				if (average == 0) {
 					continue;
-				
-				} else {
-					ratingsHS.add(new Rating(s, average));
+				}
+				else if (!checkIfInList(ratings, s)){
+					continue;
+					
+				}else{
+					ratings.add(new Rating(s, average));
 				}
 			}
 		}
-		ratings.addAll(ratingsHS);
 		return ratings;
 	}
 
@@ -70,7 +70,18 @@ public class SecondRatings {
 		}
 
 	}
-	//returns the title of a given movie ID
+
+	//helper method for averageRatingwhich checks if the title is already in an arrayList
+	private boolean checkIfInList(ArrayList<Rating> currList, String id) {
+		for (Rating r : currList) {
+			if (r.getItem().equals(id)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	//returns the title of a corresponding id, if it is contained in myMovies
 	public String getTitle (String id) {
 		for (Movie m : myMovies) {
 			if (m.getId().equals(id)){
@@ -88,19 +99,6 @@ public class SecondRatings {
 			}
 		}
 		return "ID not found";
-	}
-	
-	//return the lowest rated movie in an ArrayList of ratings
-	public String getIdOfLowestRated(ArrayList<Rating> ratings) {
-		double lowest = Double.MAX_VALUE;
-		String id = null;
-		for (Rating r : ratings) {
-			if (r.getValue() < lowest) {
-				lowest = r.getValue();
-				id = r.getItem();
-			}
-		}
-		return id;
 	}
 	
 	public void testAverages() {

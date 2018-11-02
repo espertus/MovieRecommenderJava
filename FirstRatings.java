@@ -188,7 +188,7 @@ public class FirstRatings {
 
 	//helper method for loadRaters
 	public Rater addRater(String raterID, String movieID, double rating) {
-		Rater currRater = new Rater(raterID);
+		EfficientRater currRater = new EfficientRater(raterID);
 		currRater.addRating(movieID, rating);
 		return currRater;
 	}

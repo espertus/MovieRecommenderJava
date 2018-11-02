@@ -1,53 +1,19 @@
 import java.util.ArrayList;
 
-public class Rater {
-	
-   
-
-	private String myID;
-    private ArrayList<Rating> myRatings;
-
-    Rater(String myID){
-        this.myID = myID;
-        myRatings = new ArrayList<Rating>();
-    }
+public interface Rater {
 
     //creates a new rating and adds to myRatings
-    public void addRating(String item, double rating){
-        Rating newRating = new Rating(item, rating);
-        myRatings.add(newRating);
-    }
-
-    public String getMyID() {
-        return myID;
-    }
-
+    public void addRating(String item, double rating);
+    
+    	public String getMyID();
+    	
     //returns the rating of a movie if it is in myRatings
-    public double getRating(String item) {
-    	ArrayList allContained = getItemsRated();
-        if (allContained.contains(item)){
-            int index = allContained.indexOf(item);
-            return myRatings.get(index).getValue();
-        }
-        return -1;
-    }
+    public double getRating(String item);
+    
+    public int numRatings();
 
-    public int numRatings(){
-        return myRatings.size();
-    }
-
-    public ArrayList<String> getItemsRated(){
-        ArrayList<String> myItems = new ArrayList<String>();
-        for (Rating r : myRatings){
-            String title = r.getItem();
-            myItems.add(title);
-        }
-        return myItems;
-    }
+    public ArrayList<String> getItemsRated();
     
     @Override
-   	public String toString() {
-   		return "Rater [myID=" + myID + ", myRatings=" + myRatings + "]";
-   	}
-
+   	public String toString();
 }

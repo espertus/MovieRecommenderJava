@@ -57,7 +57,7 @@ public class SecondRatings {
 			return 0.0;
 		} else {
 			for (Rater r : myRaters) {
-				ArrayList<String> ratingsByCurrentRater = r.getItemsRated();
+				//ArrayList<String> ratingsByCurrentRater = r.getItemsRated();
 				double ratingOfCurrentMovie = r.getRating(nameID);
 				if (ratingOfCurrentMovie < 0) {
 					continue;

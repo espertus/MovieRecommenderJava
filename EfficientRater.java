@@ -24,12 +24,11 @@ public class EfficientRater implements Rater {
 
     //returns the rating of a movie if it is in myRatings
     public double getRating(String item) {
-    	ArrayList allContained = getItemsRated();
-        if (allContained.contains(item)){
-            int index = allContained.indexOf(item);
-            return myRatings.get(index).getValue();
-        }
-        return -1;
+    	if (myRatings.containsKey(item)){
+            return myRatings.get(item).getValue();
+    	}
+    	return 0;
+        
     }
 
     public int numRatings(){

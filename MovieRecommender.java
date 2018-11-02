@@ -11,5 +11,8 @@ public class MovieRecommender {
 		mra.printAverageRatings();
     	//MovieRunnerAverage tester2 = new MovieRunnerAverage();
     	//tester2.printAverageRatings();
+		mra.getAverageRatingOneMovie();
     }
+    
+    
 }

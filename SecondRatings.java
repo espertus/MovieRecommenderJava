@@ -26,7 +26,6 @@ public class SecondRatings {
 		return myRaters.size();
 	}
 
-
 	//returns an ArrayList of Ratings
 	//contains the average rating for every movie with at least n raters
 	public ArrayList<Rating> getAverageRatings(int minimalRaters){
@@ -50,7 +49,7 @@ public class SecondRatings {
 	}
 
 	//helper method for averageRating which returns the average movie rating ID if there are enough ratings
-	private double getAverageByID(String nameID, int minimalRaters) {
+	public double getAverageByID(String nameID, int minimalRaters) {
 		double totalScore = 0;
 		FirstRatings firstR = new FirstRatings();
 		int numOfRatings = firstR.numOfRatingsByMovie(myRaters, Integer.parseInt(nameID));
@@ -90,6 +89,16 @@ public class SecondRatings {
 			}
 		}
 		return "Title not found";
+	}
+	
+	//returns the id of a movie given its Title
+	public String getID(String title) {
+		for (Movie m : myMovies) {
+			if (m.getTitle().equals(title)){
+				return m.getId();
+			}
+		}
+		return "ID not found";
 	}
 	
 	public void testAverages() {

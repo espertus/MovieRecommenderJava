@@ -7,8 +7,8 @@ public class MovieRecommender {
         //tester.testLoadRaters();
     	String movieFile = "data/ratedmovies_short.csv";
 		String raterFile = "data/ratings_short.csv";
-		SecondRatings sr = new SecondRatings(movieFile, raterFile);
-		sr.testAverages();
+		MovieRunnerAverage mra = new MovieRunnerAverage();
+		mra.printAverageRatings();
     	//MovieRunnerAverage tester2 = new MovieRunnerAverage();
     	//tester2.printAverageRatings();
     }

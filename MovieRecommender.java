@@ -39,8 +39,18 @@ public class MovieRecommender {
 //    	mrwf.printAverageRatingsByDirectorsAndMinutes();
     	
     	
-    	FourthRatings fr = new FourthRatings();
-    	System.out.println(fr.getAverageByID("1798709", 7));
+//    	FourthRatings fr = new FourthRatings();
+//    	System.out.println(fr.getAverageByID("1798709", 7));
+//    	
+//    	ArrayList<Rating> averageRatings = fr.getAverageRatings(0);
+//    	for (Rating r : averageRatings) {
+//    		System.out.println(r.getItem());
+//    	}
+//    	
+    	MovieRunnerSimilarRatings mrws = new MovieRunnerSimilarRatings();
+    	mrws.printAverageRatings();
+    	System.out.println();
+    	mrws.printAverageRatingsByYearAndGenre();
     }
     
     public static void testMovieDatabase() {

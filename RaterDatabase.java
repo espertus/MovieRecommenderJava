@@ -9,6 +9,7 @@ public class RaterDatabase {
 		if (ourRaters ==null) {
 			ourRaters = new HashMap<String, Rater>();
 			loadRaters(fileName);
+
 		}
 	}
 
@@ -16,6 +17,7 @@ public class RaterDatabase {
 		if (ourRaters ==null) {
 			ourRaters = new HashMap<String, Rater>();
 			loadRaters("data/ratings_short.csv");
+			
 		}
 	}
 	private static void loadRaters(String fileName) {

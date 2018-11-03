@@ -12,6 +12,7 @@ public class FourthRatings {
 	public FourthRatings(String movieFile, String raterFile) {
 		MovieDatabase.initialize(movieFile);
 		RaterDatabase.initialize(raterFile);
+		
 	}
 
 
@@ -47,7 +48,6 @@ public class FourthRatings {
 			ArrayList<String> itemsRated = r.getItemsRated();
 			for (String s : itemsRated) {
 				if (s.equals(nameID)) {
-					System.out.println(s);
 					totalScore += r.getRating(nameID);
 					count ++;
 				}
@@ -61,12 +61,9 @@ public class FourthRatings {
 		return 0;
 	}
 
-
-
 	public ArrayList<Rating> getAverageRatingsByFilter(int minimalRaters, Filter filterCriteria){
 		ArrayList<Rating> averagesOriginal = getAverageRatings(minimalRaters);
 		ArrayList<Rating> averagesToReturn = new ArrayList<Rating>();
-		MovieDatabase.initialize();
 
 		for (Rating r : averagesOriginal) {
 			String itemID = r.getItem();

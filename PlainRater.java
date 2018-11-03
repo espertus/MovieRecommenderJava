@@ -24,7 +24,7 @@ public class PlainRater implements Rater {
 
     //returns the rating of a movie if it is in myRatings
     public double getRating(String item) {
-    	ArrayList allContained = getItemsRated();
+    	ArrayList<String> allContained = getItemsRated();
         if (allContained.contains(item)){
             int index = allContained.indexOf(item);
             return myRatings.get(index).getValue();

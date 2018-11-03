@@ -15,28 +15,32 @@ public class MovieRecommender {
     	//MovieRunnerAverage tester2 = new MovieRunnerAverage();
     	//tester2.printAverageRatings();
     	//testMovieDatabase();
-    	MovieRunnerWithFilters mrwf = new MovieRunnerWithFilters();
-    	mrwf.printAverageRatings();
-    	System.out.println();
-
-    	mrwf.printAverageRatingsByGenre();
-    	System.out.println();
-    	mrwf.printAverageRatingsByYear();
+//    	MovieRunnerWithFilters mrwf = new MovieRunnerWithFilters();
+//    	mrwf.printAverageRatings();
+//    	System.out.println();
+//
+//    	mrwf.printAverageRatingsByGenre();
+//    	System.out.println();
+//    	mrwf.printAverageRatingsByYear();
+//    	
+//    	System.out.println();
+//    	mrwf.printAverageRatingsByGenre();
+//    	
+//    	System.out.println();
+//    	mrwf.printAverageRatingsByMinutes();
+//    	
+//    	System.out.println();
+//    	mrwf.printAverageRatingsByDirectors();
+//    	
+//    	System.out.println();
+//    	mrwf.printAverageRatingsByYearAndGenre();
+//    	
+//    	System.out.println();
+//    	mrwf.printAverageRatingsByDirectorsAndMinutes();
     	
-    	System.out.println();
-    	mrwf.printAverageRatingsByGenre();
     	
-    	System.out.println();
-    	mrwf.printAverageRatingsByMinutes();
-    	
-    	System.out.println();
-    	mrwf.printAverageRatingsByDirectors();
-    	
-    	System.out.println();
-    	mrwf.printAverageRatingsByYearAndGenre();
-    	
-    	System.out.println();
-    	mrwf.printAverageRatingsByDirectorsAndMinutes();
+    	FourthRatings fr = new FourthRatings();
+    	System.out.println(fr.getAverageByID("1798709", 7));
     }
     
     public static void testMovieDatabase() {

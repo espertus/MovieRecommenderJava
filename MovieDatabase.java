@@ -18,7 +18,7 @@ public class MovieDatabase {
 	public static void initialize() {
 		if (ourMovies ==null) {
 			ourMovies = new HashMap<String, Movie>();
-			loadMovies("data/ratedmovies_short.csv");
+			loadMovies("data/ratedmoviesfull.csv");
 		}
 	}
 	private static void loadMovies(String fileName) {
@@ -84,6 +84,16 @@ public class MovieDatabase {
 	            if (f.satisfies(id)) {
 	                list.add(id);
 	            }
+	        }
+	        
+	        return list;
+	    }
+	    
+	    public static ArrayList<String> getMovies(){
+	    	initialize();
+	        ArrayList<String> list = new ArrayList<String>();
+	        for(String id : ourMovies.keySet()) {
+	                list.add(id);
 	        }
 	        
 	        return list;

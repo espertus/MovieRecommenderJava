@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class FourthRatings {
@@ -7,17 +9,16 @@ public class FourthRatings {
 	public FourthRatings() {
 		MovieDatabase.initialize();
 		RaterDatabase.initialize();
+		System.out.println("Size of movies: " + MovieDatabase.size());
+		System.out.println("Size of raters: " + RaterDatabase.size());
+
 	}
 
 	public FourthRatings(String movieFile, String raterFile) {
 		MovieDatabase.initialize(movieFile);
 		RaterDatabase.initialize(raterFile);
-		
+
 	}
-
-
-
-
 	//returns an ArrayList of Ratings
 	//contains the average rating for every movie with at least n raters
 	public ArrayList<Rating> getAverageRatings(int minimalRaters){
@@ -52,7 +53,7 @@ public class FourthRatings {
 					count ++;
 				}
 			}
-			
+
 		}
 		if (count >= minimalRaters) {
 			double average = totalScore / count;
@@ -77,10 +78,126 @@ public class FourthRatings {
 		return averagesToReturn;
 	}
 
+	private double dotProduct (Rater me, Rater r) {
+		ArrayList<String> itemsIveRated = me.getItemsRated();
+		double dotTotal = 0;
+		for (String s : itemsIveRated) {
+			double myRating = me.getRating(s) - 5;
+			if (r.getRating(s) == 0) {
+				continue;
+			}
+			double theirRating = r.getRating(s) - 5;
+			if (theirRating != -5) {
+			dotTotal += (myRating * theirRating);
+			}
+		}
+		//System.out.println(dotTotal);
+		return dotTotal;
+	}
+
+	//computes a similarity rating for each rater in the database to the provided rater
+	private ArrayList<Rating> getSimilarities(String id){
+		ArrayList<Rating> list = new ArrayList<Rating>();
+		Rater me = RaterDatabase.getRater(id);
+		for (Rater r : RaterDatabase.getRaters()) {
+			if (r.getMyID().equals(id)) {
+				continue;
+			} 
+			list.add(new Rating(r.getMyID(), dotProduct(me, r)));
+		}
+
+		Collections.sort(list, Collections.reverseOrder());
+		
+		return list;
+	} 
+
+	//id: Rater ID
+	//numSimilar: must be in top X
+	//
+	public ArrayList<Rating> getSimilarRatings(String id, int numSimilarRaters, int minimalRaters){
+
+		//get the similarity scores for all raters
+		ArrayList<Rating> allRaters = getSimilarities(id);
+
+		//cull the list to only the 'top' raters, per the numSimilarRaters
+		ArrayList<Rating> onlyTopRaters = new ArrayList<Rating>();
+		for (int i = 0; i < allRaters.size()-1; i++) {
+			if (i >= numSimilarRaters) {
+				break;
+			}
+
+			else {
+				onlyTopRaters.add(allRaters.get(i));
+			}	
+		}
+		//hashmap showing how many times each movie has been rated by most similar raters
+		HashMap <String, Integer> moviesAndCountInTopRaters = new HashMap<String,Integer>();
+
+		//for all raters in top list
+		//for all movies rated
+		//add to hashmap and add 1
+		for (Rating r : onlyTopRaters) {
+			String raterID = r.getItem();
+			Rater rater = RaterDatabase.getRater(raterID);
+			ArrayList<String> moviesRated = rater.getItemsRated();
+			for (String s : moviesRated) {
+				if (!moviesAndCountInTopRaters.containsKey(s)) {
+					moviesAndCountInTopRaters.put(s, 1);
+				} else {
+					moviesAndCountInTopRaters.put(s, moviesAndCountInTopRaters.get(s) + 1);
+				}
+			}
+		}	
+		
+		for (String s : moviesAndCountInTopRaters.keySet()) {
+			if (moviesAndCountInTopRaters.get(s) > 10) {
+			//	System.out.println(s + " | " + MovieDatabase.getTitle(s) + " " + moviesAndCountInTopRaters.get(s));
+			//2582846 fault in our stars
+			}
+		}
+
+		ArrayList<Rating> recommendations = new ArrayList<Rating>();
+		for (String s : moviesAndCountInTopRaters.keySet()) {
+			if (moviesAndCountInTopRaters.get(s) < minimalRaters) {
+				continue;
+			} else {
+				double cummulativeScore = 0;
+				double countOfReviewers = 0;
+				for (Rating r : onlyTopRaters) {
+					String raterID = r.getItem();
+					Rater rater = RaterDatabase.getRater(raterID);
+					ArrayList<String> moviesRated = rater.getItemsRated();	
+					if (moviesRated.contains(s)) {
+						double weightedScore = r.getValue();
+				
+						cummulativeScore += rater.getRating(s) * weightedScore;
+						countOfReviewers++;
+					} 
+				}
+				double average = cummulativeScore/countOfReviewers;
+				Rating rating = new Rating(s, average);
+				recommendations.add(rating);
+			}
+		}
+		Collections.sort(recommendations, Collections.reverseOrder());
+		System.out.println(MovieDatabase.getTitle(recommendations.get(0).getItem()) + " | " + recommendations.get(0).getValue());
+		for (int i = 0; i < recommendations.size(); i++) {
+			//System.out.println(MovieDatabase.getTitle(recommendations.get(i).getItem()) + " | " + recommendations.get(i).getValue());
+
+		}
 
 
-
+		return recommendations;
+	}
 }
+//
+//- Write the public method named getSimilarRatings, which has three parameters: a String named id representing a rater ID, an integer named numSimilarRaters, and an integer named minimalRaters. 
+
+//This method should return an ArrayList of type Rating, of movies and their weighted average ratings using only the top numSimilarRaters with positive ratings and including only those movies that have at least minimalRaters ratings from those most similar raters (not just minimalRaters ratings overall). 
+
+//For example, if minimalRaters is 3 and a movie has 4 ratings but only 2 of those ratings were made by raters in the top numSimilarRaters, that movie should not be included. These Rating objects should be returned in sorted order by weighted average rating from largest to smallest ratings. This method is very much like the getAverageRatings method you have written previously. In particular this method should:
+//
+//
 
 
 

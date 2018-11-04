@@ -30,7 +30,7 @@ public class MovieRunnerSimilarRatings {
 		allFilters.addFilter(new YearsAfterFilter(year));
 		allFilters.addFilter(new GenreFilter(genre));
 		
-		String raterFile = "data/ratings.csv";
+		//String raterFile = "data/ratings.csv";
 		FourthRatings fr = new FourthRatings();
 		ArrayList<Rating> averagesWithFilter = fr.getAverageRatingsByFilter(minimalRaters, allFilters);
 //		for (Rating r : averagesWithFilter) {
@@ -45,4 +45,6 @@ public class MovieRunnerSimilarRatings {
 		System.out.println(averagesWithFilter.size());
 
 	}
+	
+	
 }

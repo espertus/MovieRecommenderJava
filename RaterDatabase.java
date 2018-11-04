@@ -16,7 +16,7 @@ public class RaterDatabase {
 	public static void initialize() {
 		if (ourRaters ==null) {
 			ourRaters = new HashMap<String, Rater>();
-			loadRaters("data/ratings_short.csv");
+			loadRaters("data/ratings.csv");
 			
 		}
 	}

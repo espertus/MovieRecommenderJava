@@ -46,11 +46,14 @@ public class MovieRecommender {
 //    	for (Rating r : averageRatings) {
 //    		System.out.println(r.getItem());
 //    	}
+////    	
+//    	MovieRunnerSimilarRatings mrws = new MovieRunnerSimilarRatings();
+//    	mrws.printAverageRatings();
+//    	System.out.println();
+//    	mrws.printAverageRatingsByYearAndGenre();
 //    	
-    	MovieRunnerSimilarRatings mrws = new MovieRunnerSimilarRatings();
-    	mrws.printAverageRatings();
-    	System.out.println();
-    	mrws.printAverageRatingsByYearAndGenre();
+    	FourthRatings fr = new FourthRatings();
+    	fr.getSimilarRatings("65", 20, 5);
     }
     
     public static void testMovieDatabase() {

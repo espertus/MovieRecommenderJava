@@ -9,9 +9,6 @@ public class FourthRatings {
 	public FourthRatings() {
 		MovieDatabase.initialize();
 		RaterDatabase.initialize();
-		System.out.println("Size of movies: " + MovieDatabase.size());
-		System.out.println("Size of raters: " + RaterDatabase.size());
-
 	}
 
 	public FourthRatings(String movieFile, String raterFile) {
@@ -88,7 +85,7 @@ public class FourthRatings {
 			}
 			double theirRating = r.getRating(s) - 5;
 			if (theirRating != -5) {
-			dotTotal += (myRating * theirRating);
+				dotTotal += (myRating * theirRating);
 			}
 		}
 		//System.out.println(dotTotal);
@@ -107,7 +104,7 @@ public class FourthRatings {
 		}
 
 		Collections.sort(list, Collections.reverseOrder());
-		
+
 		return list;
 	} 
 
@@ -148,14 +145,6 @@ public class FourthRatings {
 				}
 			}
 		}	
-		
-		for (String s : moviesAndCountInTopRaters.keySet()) {
-			if (moviesAndCountInTopRaters.get(s) > 10) {
-			//	System.out.println(s + " | " + MovieDatabase.getTitle(s) + " " + moviesAndCountInTopRaters.get(s));
-			//2582846 fault in our stars
-			}
-		}
-
 		ArrayList<Rating> recommendations = new ArrayList<Rating>();
 		for (String s : moviesAndCountInTopRaters.keySet()) {
 			if (moviesAndCountInTopRaters.get(s) < minimalRaters) {
@@ -169,7 +158,6 @@ public class FourthRatings {
 					ArrayList<String> moviesRated = rater.getItemsRated();	
 					if (moviesRated.contains(s)) {
 						double weightedScore = r.getValue();
-				
 						cummulativeScore += rater.getRating(s) * weightedScore;
 						countOfReviewers++;
 					} 
@@ -180,7 +168,7 @@ public class FourthRatings {
 			}
 		}
 		Collections.sort(recommendations, Collections.reverseOrder());
-		System.out.println(MovieDatabase.getTitle(recommendations.get(0).getItem()) + " | " + recommendations.get(0).getValue());
+	//	System.out.println(MovieDatabase.getTitle(recommendations.get(0).getItem()) + " | " + recommendations.get(0).getValue());
 		for (int i = 0; i < recommendations.size(); i++) {
 			//System.out.println(MovieDatabase.getTitle(recommendations.get(i).getItem()) + " | " + recommendations.get(i).getValue());
 
@@ -188,6 +176,19 @@ public class FourthRatings {
 
 
 		return recommendations;
+	}
+
+
+	public ArrayList<Rating> getSimilarRatingsByFilter(String id, int numSimilarRaters, int minimalRaters, Filter f	){
+		ArrayList<Rating> notFiltered = getSimilarRatings(id, numSimilarRaters, minimalRaters);
+		ArrayList<Rating> filtered = new ArrayList<Rating>();
+		for (Rating r : notFiltered) {
+			String itemID = r.getItem();
+			if (f.satisfies(itemID)) {
+				filtered.add(r);	
+			}
+		}
+		return filtered;
 	}
 }
 //

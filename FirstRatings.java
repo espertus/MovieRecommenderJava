@@ -48,8 +48,6 @@ public class FirstRatings {
 		return movieList;
 	}
 
-
-
 	//returns the number of movies which are classified as a certain genre
 	public int moviesInGenre(ArrayList<Movie> movies, String genre) {
 		int count = 0;
@@ -90,9 +88,7 @@ public class FirstRatings {
 			}
 		}
 		//print all the directors
-		for (String key : directorsHM.keySet()) {
-			// System.out.println(key);
-		}
+		
 		//print the most movies directed by any one or more directors
 		int mostMovies = biggestMax(directorsHM);
 		System.out.println("The highest number of movies directed is: " + mostMovies);

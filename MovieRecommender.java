@@ -54,40 +54,29 @@ public class MovieRecommender {
 		//    	
 		//FourthRatings fr = new FourthRatings();
 		//fr.getSimilarRatings("65", 20, 5);
-
-		MovieRunnerSimilarRatings mrws = new MovieRunnerSimilarRatings();
-		System.out.println("running printSimilarRatings");
-		mrws.printSimilarRatings();
-		System.out.println();
-
-		System.out.println("running printSimilarRatingsByGenre");
-		mrws.printSimilarRatingsByGenre();
-		System.out.println();
-
-		System.out.println("running printSimilarRatingsByDirector");
-		mrws.printSimilarRatingsByDirector();
-		System.out.println();
-
-		System.out.println("running printSimilarRatingsByGenreAndMinutes");
-		mrws.printSimilarRatingsByGenreAndMinutes();
-		System.out.println();
-
-
-		System.out.println("running printSimilarRatingsByYearAndMinutes");
-		mrws.printSimilarRatingsByYearAndMinutes();
+//
+//		MovieRunnerSimilarRatings mrws = new MovieRunnerSimilarRatings();
+//		System.out.println("running printSimilarRatings");
+//		mrws.printSimilarRatings();
+//		System.out.println();
+//
+//		System.out.println("running printSimilarRatingsByGenre");
+//		mrws.printSimilarRatingsByGenre();
+//		System.out.println();
+//
+//		System.out.println("running printSimilarRatingsByDirector");
+//		mrws.printSimilarRatingsByDirector();
+//		System.out.println();
+//
+//		System.out.println("running printSimilarRatingsByGenreAndMinutes");
+//		mrws.printSimilarRatingsByGenreAndMinutes();
+//		System.out.println();
+//
+//
+//		System.out.println("running printSimilarRatingsByYearAndMinutes");
+//		mrws.printSimilarRatingsByYearAndMinutes();
+		
+		RecommendationRunner rr = new RecommendationRunner();
+		rr.printRecommendationsFor("1");
 	}
-
-	public static void testMovieDatabase() {
-		ThirdRatings tr = new ThirdRatings();
-		ArrayList<Rating> ratings = tr.getAverageRatings(0);
-
-		for (Rating r : ratings) {
-			Double value = r.getValue();
-			if (value > 9) {
-				System.out.println(r.getItem());
-			}
-		}
-	}
-
-
 }

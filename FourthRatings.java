@@ -68,10 +68,7 @@ public class FourthRatings {
 			if (filterCriteria.satisfies(itemID)) {
 				averagesToReturn.add(r);	
 			}
-
 		}
-
-
 		return averagesToReturn;
 	}
 
@@ -88,7 +85,6 @@ public class FourthRatings {
 				dotTotal += (myRating * theirRating);
 			}
 		}
-		//System.out.println(dotTotal);
 		return dotTotal;
 	}
 
@@ -109,8 +105,7 @@ public class FourthRatings {
 	} 
 
 	//id: Rater ID
-	//numSimilar: must be in top X
-	//
+	//numSimilar: must be in top X most similar raters
 	public ArrayList<Rating> getSimilarRatings(String id, int numSimilarRaters, int minimalRaters){
 
 		//get the similarity scores for all raters
@@ -118,21 +113,12 @@ public class FourthRatings {
 
 		//cull the list to only the 'top' raters, per the numSimilarRaters
 		ArrayList<Rating> onlyTopRaters = new ArrayList<Rating>();
-		for (int i = 0; i < allRaters.size()-1; i++) {
-			if (i >= numSimilarRaters) {
-				break;
-			}
-
-			else {
-				onlyTopRaters.add(allRaters.get(i));
-			}	
+		for (int i = 0; i < numSimilarRaters; i++) {
+			onlyTopRaters.add(allRaters.get(i));
 		}
+
 		//hashmap showing how many times each movie has been rated by most similar raters
 		HashMap <String, Integer> moviesAndCountInTopRaters = new HashMap<String,Integer>();
-
-		//for all raters in top list
-		//for all movies rated
-		//add to hashmap and add 1
 		for (Rating r : onlyTopRaters) {
 			String raterID = r.getItem();
 			Rater rater = RaterDatabase.getRater(raterID);
@@ -145,6 +131,7 @@ public class FourthRatings {
 				}
 			}
 		}	
+
 		ArrayList<Rating> recommendations = new ArrayList<Rating>();
 		for (String s : moviesAndCountInTopRaters.keySet()) {
 			if (moviesAndCountInTopRaters.get(s) < minimalRaters) {
@@ -168,16 +155,8 @@ public class FourthRatings {
 			}
 		}
 		Collections.sort(recommendations, Collections.reverseOrder());
-	//	System.out.println(MovieDatabase.getTitle(recommendations.get(0).getItem()) + " | " + recommendations.get(0).getValue());
-		for (int i = 0; i < recommendations.size(); i++) {
-			//System.out.println(MovieDatabase.getTitle(recommendations.get(i).getItem()) + " | " + recommendations.get(i).getValue());
-
-		}
-
-
 		return recommendations;
 	}
-
 
 	public ArrayList<Rating> getSimilarRatingsByFilter(String id, int numSimilarRaters, int minimalRaters, Filter f	){
 		ArrayList<Rating> notFiltered = getSimilarRatings(id, numSimilarRaters, minimalRaters);

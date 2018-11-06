@@ -1,8 +1,8 @@
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 public class MovieRecommender {
 	public static void main(String args[]){
-		//        FirstRatings tester = new FirstRatings();
+		//        LoadMovies tester = new LoadMovies();
 		//        tester.testLoadMovies();
 		//        tester.testLoadRaters();
 
@@ -39,7 +39,7 @@ public class MovieRecommender {
 		//    	mrwf.printAverageRatingsByDirectorsAndMinutes();
 
 
-		//    	FourthRatings fr = new FourthRatings();
+		//    	AverageRatings fr = new AverageRatings();
 		//    	System.out.println(fr.getAverageByID("1798709", 7));
 		//    	
 		//    	ArrayList<Rating> averageRatings = fr.getAverageRatings(0);
@@ -52,31 +52,31 @@ public class MovieRecommender {
 		//    	System.out.println();
 		//    	mrws.printAverageRatingsByYearAndGenre();
 		//    	
-		//FourthRatings fr = new FourthRatings();
+		//AverageRatings fr = new AverageRatings();
 		//fr.getSimilarRatings("65", 20, 5);
 //
-//		MovieRunnerSimilarRatings mrws = new MovieRunnerSimilarRatings();
-//		System.out.println("running printSimilarRatings");
-//		mrws.printSimilarRatings();
-//		System.out.println();
-//
-//		System.out.println("running printSimilarRatingsByGenre");
-//		mrws.printSimilarRatingsByGenre();
-//		System.out.println();
-//
-//		System.out.println("running printSimilarRatingsByDirector");
-//		mrws.printSimilarRatingsByDirector();
-//		System.out.println();
-//
-//		System.out.println("running printSimilarRatingsByGenreAndMinutes");
-//		mrws.printSimilarRatingsByGenreAndMinutes();
-//		System.out.println();
-//
-//
-//		System.out.println("running printSimilarRatingsByYearAndMinutes");
-//		mrws.printSimilarRatingsByYearAndMinutes();
+MovieRunnerSimilarRatings mrws = new MovieRunnerSimilarRatings();
+		System.out.println("running printSimilarRatings");
+		mrws.printSimilarRatings();
+		System.out.println();
+
+		System.out.println("running printSimilarRatingsByGenre");
+		mrws.printSimilarRatingsByGenre();
+		System.out.println();
+
+		System.out.println("running printSimilarRatingsByDirector");
+		mrws.printSimilarRatingsByDirector();
+		System.out.println();
+
+		System.out.println("running printSimilarRatingsByGenreAndMinutes");
+		mrws.printSimilarRatingsByGenreAndMinutes();
+		System.out.println();
+
+
+		System.out.println("running printSimilarRatingsByYearAndMinutes");
+		mrws.printSimilarRatingsByYearAndMinutes();
 		
-		RecommendationRunner rr = new RecommendationRunner();
-		rr.printRecommendationsFor("1");
+//		RecommendationRunner rr = new RecommendationRunner();
+//		rr.printRecommendationsFor("1");
 	}
 }

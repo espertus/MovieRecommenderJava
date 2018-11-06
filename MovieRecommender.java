@@ -47,7 +47,7 @@ public class MovieRecommender {
 		//    		System.out.println(r.getItem());
 		//    	}
 		////    	
-		//    	MovieRunnerSimilarRatings mrws = new MovieRunnerSimilarRatings();
+		//    	SimilarityScoresRunner mrws = new SimilarityScoresRunner();
 		//    	mrws.printAverageRatings();
 		//    	System.out.println();
 		//    	mrws.printAverageRatingsByYearAndGenre();
@@ -55,7 +55,7 @@ public class MovieRecommender {
 		//AverageRatings fr = new AverageRatings();
 		//fr.getSimilarRatings("65", 20, 5);
 //
-MovieRunnerSimilarRatings mrws = new MovieRunnerSimilarRatings();
+SimilarityScoresRunner mrws = new SimilarityScoresRunner();
 		System.out.println("running printSimilarRatings");
 		mrws.printSimilarRatings();
 		System.out.println();

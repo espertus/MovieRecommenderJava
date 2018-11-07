@@ -339,9 +339,8 @@ public class OldMethods {
 		allFilters.addFilter(new FilterByYearSince(year));
 		allFilters.addFilter(new FilterByGenre(genre));
 
-		AverageRatings ar = new AverageRatings();
 
-		ArrayList<Rating> averagesWithFilter = ar.getAverageRatingsByFilter(minimalRaters, allFilters);
+		ArrayList<Rating> averagesWithFilter = MovieDatabase.getAverageRatingsByFilter(minimalRaters, allFilters);
 		//		for (Rating r : averagesWithFilter) {
 		//			System.out.println(r.getValue()
 		//					+ " | " +
@@ -364,8 +363,7 @@ public class OldMethods {
 		int maxMinutes = 180;
 		allFilters.addFilter(new FilterByDirector(directors));
 		allFilters.addFilter(new FilterByMinutes(minMinutes, maxMinutes));
-		AverageRatings ar = new AverageRatings();
-		ArrayList<Rating> averagesWithFilter = ar.getAverageRatingsByFilter(minimalRaters, allFilters);
+		ArrayList<Rating> averagesWithFilter = MovieDatabase.getAverageRatingsByFilter(minimalRaters, allFilters);
 		//		for (Rating r : averagesWithFilter) {
 		//			System.out.println(r.getValue()
 		//					+ " | " +

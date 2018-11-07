@@ -14,7 +14,7 @@ It asks the user to pick a genre of movie, then provides them with 10 (or less) 
 ### Is a:
 * Interface
 ## Has a:
-* satisfies method which returns true or false
+* Satisfies method which returns true or false
 
 ## FilterAllTrue
 ### Is a:
@@ -70,30 +70,27 @@ It asks the user to pick a genre of movie, then provides them with 10 (or less) 
 * Mapping of Movie IDs to Movie Objects
 
 ## MovieRecommendationRunner
-Holds the logic and methods for the program to run in the console
+* Holds the logic and methods for the program to run in the console
 
 ## MovieRecommender
-Contains main method
+* Contains main method
 
 ## OldMethods
-Contains methods written for Duke University's assignments which currently do not fit into any other section of the project.
+* Contains methods written for Duke University's assignments which currently do not fit into any other section of the project.
 
 ## Rater
 ### Is a
-Interface
+* Interface
 
 ## RaterDatabase
 ### Has a/an:
-HashMap of RaterIDs to Rater objects
+H* ashMap of RaterIDs to Rater objects
 
 ## Ratings
 ### Has a/an:
-ID
-Has a rating value
+* ID
+* Rating value
 
-
-## MovieRecommender
-Main method
 
 ## SimilarityScores
-Allows us to find a similarity score between two users.
+* Allows us to find a similarity score between two users.

@@ -47,6 +47,7 @@ public class RaterDatabase {
 	}
 
 	public static ArrayList<Rater> getRaters(){
+		initialize();
 		ArrayList<Rater> raters = new ArrayList<Rater>(ourRaters.values());
 		return raters;
 	}

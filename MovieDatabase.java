@@ -1,7 +1,10 @@
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+
 import org.apache.commons.csv.*;
 
 
@@ -25,7 +28,7 @@ public class MovieDatabase {
 			loadMovies("data/ratedmoviesfull.csv");
 		}
 	}
-	
+
 	private static void loadMovies(String fileName) {
 		ArrayList<Movie> movieList = new ArrayList<Movie>();
 		try {
@@ -36,7 +39,7 @@ public class MovieDatabase {
 						r.get("id"),
 						r.get("title"),
 						Integer.parseInt(r.get("year")),
-						r.get("genre"),
+						r.get("genre").toLowerCase(),
 						r.get("director"),
 						r.get("country"),
 						Integer.parseInt(r.get("minutes")),
@@ -58,7 +61,7 @@ public class MovieDatabase {
 			ourMovies.put(m.getId(), m);
 		}
 	}
-	
+
 	public static String getID (String title) {
 		initialize();
 		for (String s : ourMovies.keySet()) {
@@ -69,11 +72,12 @@ public class MovieDatabase {
 		}
 		return "Movie not found";
 	}
-	
+
 	public static boolean containsID(String id) {
 		initialize();
 		return ourMovies.containsKey(id);
 	}
+
 	public static int getYear(String id) {
 		initialize();
 		return ourMovies.get(id).getYear();
@@ -137,7 +141,100 @@ public class MovieDatabase {
 		}
 		return list;
 	}
+
+	public static ArrayList<String> getGenres(){
+		initialize();
+
+		//returns all of the possible genres from the MovieDatabase
+		ArrayList<String> allGenres = new ArrayList<String>();
+		for (String s : ourMovies.keySet()) {
+			String genres = ourMovies.get(s).getGenre();
+			String[] genresSplit = genres.split(", ");
+			for (String t : genresSplit) {
+
+				if (!allGenres.contains(t) && !t.equals("n/a")) {
+					allGenres.add(t);
+				}
+			}
+		}
+		Collections.sort(allGenres);
+		return allGenres;
+	}
+
+
+	//returns the average movie rating ID if there are enough ratings
+	public static double getAverageByID(String nameID, int minimalRaters) {
+		double totalScore = 0;
+		int numOfRatings = numOfRatingsByMovie(RaterDatabase.getRaters(), Integer.parseInt(nameID));
+		if (numOfRatings < minimalRaters) {
+			return 0.0;
+		} else {
+			for (Rater r : RaterDatabase.getRaters()) {
+				//ArrayList<String> ratingsByCurrentRater = r.getItemsRated();
+				double ratingOfCurrentMovie = r.getRating(nameID);
+				if (ratingOfCurrentMovie < 0) {
+					continue;
+				} else {
+					totalScore += ratingOfCurrentMovie;
+				}
+			}
+			double averageScore = totalScore / numOfRatings;
+			return averageScore;
+		}
+	}
+
+	//returns an integer representing how many users have rated a particular movie
+	public static  int numOfRatingsByMovie(ArrayList<Rater> ratings, int movieID) {
+		int count = 0;
+
+		for (Rater r : ratings) {
+			ArrayList<String> itemsRated = r.getItemsRated();
+			for (String s : itemsRated) {
+				int currMovie = Integer.parseInt(s);
+				if (currMovie == movieID) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+
+	//returns an ArrayList of all Ratings
+	//contains the HashSet rating for every movie with at least n raters
+	public static ArrayList<Rating> getAverageRatings(int minimalRaters){
+		ArrayList<Rating> ratings = new ArrayList<Rating>();
+		HashSet<Rating> ratingsHS = new HashSet<Rating>();
+		for (Rater r : RaterDatabase.getRaters()) {
+			ArrayList<String> moviesInList = r.getItemsRated();
+			for (String s : moviesInList) {
+				double average = getAverageByID(s,minimalRaters);
+				if (average == 0) {
+					continue;
+
+				} else {
+					ratingsHS.add(new Rating(s, average));
+				}
+			}
+		}
+		ratings.addAll(ratingsHS);
+		return ratings;
+	}
 	
-	
+	public static ArrayList<Rating>  getAverageRatingsByFilter(int minimalRaters, Filter filterCriteria){
+		ArrayList<Rating> averagesOriginal = getAverageRatings(minimalRaters);
+		ArrayList<Rating> averagesToReturn = new ArrayList<Rating>();
+
+		for (Rating r : averagesOriginal) {
+			String itemID = r.getItem();
+			if (filterCriteria.satisfies(itemID)) {
+				averagesToReturn.add(r);	
+			}
+		}
+		Collections.sort(averagesToReturn);
+		Collections.reverse(averagesToReturn);
+		
+		return averagesToReturn;
+	}
+
 
 }

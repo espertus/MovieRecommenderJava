@@ -22,9 +22,7 @@ public class SimilarityScores {
 		return list;
 	} 
 
-	//id: Rater ID
-	//numSimilar: how many similar raters will be used to find recommendation
-	//minimalRaters: how many ratings a movie must have to be included in our search
+	//returns a list of Ratings, where the ID is a RaterID and the value is a similarity score to the user
 	public ArrayList<Rating> getSimilarRatings(String id, int numSimilarRaters, int minimalRaters){
 
 		//get the similarity scores for all raters
@@ -32,9 +30,17 @@ public class SimilarityScores {
 
 		//cull the list to only the 'top' raters, per the numSimilarRaters
 		ArrayList<Rating> onlyTopRaters = new ArrayList<Rating>();
+
 		for (int i = 0; i < numSimilarRaters; i++) {
 			onlyTopRaters.add(allRaters.get(i));
 		}
+//		if (onlyTopRaters.size() == 1) {
+//			ArrayList<Rating> returnNoRatings = new ArrayList<Rating>();
+//			Rating noRatings = new Rating ("-1", -1);
+//			returnNoRatings.add(noRatings);
+//			return returnNoRatings;
+//		}
+
 		HashMap <String, Integer>countOfMovieInTopRaters = buildMapOfMovies(onlyTopRaters);
 		ArrayList<Rating> recommendations = new ArrayList<Rating>();
 		for (String s : countOfMovieInTopRaters.keySet()) {
@@ -46,6 +52,18 @@ public class SimilarityScores {
 		}
 		Collections.sort(recommendations, Collections.reverseOrder());
 		return recommendations;
+	}
+	
+	public ArrayList<Rating> getSimilarRatingsByFilter(String id, int numSimilarRaters, int minimalRaters, Filter f	){
+		ArrayList<Rating> notFiltered = getSimilarRatings(id, numSimilarRaters, minimalRaters);
+		ArrayList<Rating> filtered = new ArrayList<Rating>();
+		for (Rating r : notFiltered) {
+			String itemID = r.getItem();
+			if (f.satisfies(itemID)) {
+				filtered.add(r);	
+			}
+		}
+		return filtered;
 	}
 
 	//helper method for getSimilarRatings which maps how many times each movie has been rated by most similar raters
@@ -101,17 +119,5 @@ public class SimilarityScores {
 			}
 		}
 		return dotTotal;
-	}
-
-	public ArrayList<Rating> getSimilarRatingsByFilter(String id, int numSimilarRaters, int minimalRaters, Filter f	){
-		ArrayList<Rating> notFiltered = getSimilarRatings(id, numSimilarRaters, minimalRaters);
-		ArrayList<Rating> filtered = new ArrayList<Rating>();
-		for (Rating r : notFiltered) {
-			String itemID = r.getItem();
-			if (f.satisfies(itemID)) {
-				filtered.add(r);	
-			}
-		}
-		return filtered;
 	}
 }

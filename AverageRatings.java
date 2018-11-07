@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 
 public class AverageRatings {
@@ -48,6 +49,7 @@ public class AverageRatings {
 				}
 			}
 		}
+		
 		if (count >= minimalRaters) {
 			double average = totalScore / count;
 			return average;
@@ -65,6 +67,9 @@ public class AverageRatings {
 				averagesToReturn.add(r);	
 			}
 		}
+		Collections.sort(averagesToReturn);
+		Collections.reverse(averagesToReturn);
+	
 		return averagesToReturn;
 	}
 

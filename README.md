@@ -3,7 +3,7 @@
 This program runs in the console (for now).
 It asks the user to pick a genre of movie, then provides them with 10 (or less) movies from that genre to rate. It creates a user profile based on these ratings and then suggests  movies for them to watch next. These suggestions are created by comparing their ratings to other users with similar ratings, giving users more like them a greater weight in the recommendation.
 
-##Classes in this project:
+## Classes in this project:
 
 ### EfficientRaters
 #### Is a:
@@ -86,7 +86,7 @@ It asks the user to pick a genre of movie, then provides them with 10 (or less) 
 
 ### RaterDatabase
 #### Has a/an:
-H* ashMap of RaterIDs to Rater objects
+* HashMap of RaterIDs to Rater objects
 
 ### Ratings
 #### Has a/an:
